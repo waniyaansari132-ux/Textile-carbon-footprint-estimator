@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-st.markdown(unsafe_allow_html=True, '<style> body {background-color: #f0f2f6;} </style>')`.
+st.markdown('<style> body {background-color: #f0f2f6;} </style>', unsafe_allow_html=True)
 
 
 
