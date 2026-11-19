@@ -1,1 +1,3 @@
-﻿Streamlit,pandas,matplotlib
+﻿Streamlit
+pandas
+matplotlib
