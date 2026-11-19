@@ -1,0 +1,308 @@
+﻿import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# --------------------------------
+# 1. Page Configuration
+# --------------------------------
+
+
+st.set_page_config(
+    page_title="Textile Carbon Footprint Estimator",
+    page_icon="🌱",
+    layout="wide"
+)
+
+
+# --------------------------------
+# 2. Emission Factors
+# --------------------------------
+
+
+# Approximate kg CO2e per kg of fabric
+
+
+EMISSION_FACTORS = {
+    "Cotton": 5.9,
+    "Polyester": 9.5,
+    "Recycled Fiber": 2.5
+}
+
+
+# --------------------------------
+# 3. App Title
+# --------------------------------
+
+
+st.title("🌱 Textile Carbon Footprint Estimator")
+
+
+st.write(
+    "Estimate the approximate carbon footprint "
+    "of different fabric types based on their weight."
+)
+
+
+st.info(
+    "This application compares Cotton, Polyester, "
+    "and Recycled Fiber using illustrative emission factors."
+)
+
+
+# --------------------------------
+# 4. Fabric Information
+# --------------------------------
+
+
+st.sidebar.header("Fabric Information")
+
+
+fabric_type = st.sidebar.selectbox(
+    "Select Fabric Type",
+    ["Cotton", "Polyester", "Recycled Fiber"]
+)
+
+
+weight = st.sidebar.number_input(
+    "Enter Fabric Weight (kg)",
+    min_value=0.1,
+    max_value=10000.0,
+    value=10.0,
+    step=0.5
+)
+
+
+# --------------------------------
+# 5. Carbon Footprint Calculation
+# --------------------------------
+
+
+carbon_footprint = (
+    weight * EMISSION_FACTORS[fabric_type]
+)
+
+
+# --------------------------------
+# 6. Display Selected Fabric Result
+# --------------------------------
+
+
+st.header("📊 Carbon Footprint Result")
+
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+    st.metric(
+        "Fabric Type",
+        fabric_type
+    )
+
+
+with col2:
+    st.metric(
+        "Fabric Weight",
+        f"{weight:.2f} kg"
+    )
+
+
+with col3:
+    st.metric(
+        "CO₂ Emissions",
+        f"{carbon_footprint:.2f} kg CO₂e"
+    )
+
+
+# --------------------------------
+# 7. Compare All Fabric Types
+# --------------------------------
+
+
+comparison_data = []
+
+
+for fiber, factor in EMISSION_FACTORS.items():
+
+
+    emissions = weight * factor
+
+
+    comparison_data.append({
+        "Fabric Type": fiber,
+        "Emission Factor (kg CO₂e/kg)": factor,
+        "CO₂ Emissions (kg)": emissions
+    })
+
+
+df = pd.DataFrame(comparison_data)
+
+
+st.header("🔍 Fabric Comparison")
+
+
+st.write(
+    f"Carbon footprint comparison for {weight:.2f} kg of fabric:"
+)
+
+
+st.dataframe(
+    df,
+    use_container_width=True,
+    hide_index=True
+)
+
+
+# --------------------------------
+# 8. Carbon Emission Bar Chart
+# --------------------------------
+
+
+st.header("📈 Carbon Emission Comparison")
+
+
+fig, ax = plt.subplots(figsize=(9, 5))
+
+
+ax.bar(
+    df["Fabric Type"],
+    df["CO₂ Emissions (kg)"]
+)
+
+
+ax.set_xlabel("Fabric Type")
+ax.set_ylabel("CO₂ Emissions (kg CO₂e)")
+
+
+ax.set_title(
+    "Carbon Footprint of Different Fibers"
+)
+
+
+ax.grid(
+    axis="y",
+    linestyle="--",
+    alpha=0.4
+)
+
+
+st.pyplot(fig)
+
+
+plt.close(fig)
+
+
+# --------------------------------
+# 9. Environment-Friendly Choice
+# --------------------------------
+
+
+lowest_fabric = min(
+    EMISSION_FACTORS,
+    key=EMISSION_FACTORS.get
+)
+
+
+lowest_emission = (
+    weight * EMISSION_FACTORS[lowest_fabric]
+)
+
+
+st.header("🌍 Environment-Friendly Choice")
+
+
+st.success(
+    f"{lowest_fabric} has the lowest estimated "
+    f"carbon footprint at {lowest_emission:.2f} "
+    f"kg CO₂e for {weight:.2f} kg of fabric."
+)
+
+
+# --------------------------------
+# 10. Key Findings
+# --------------------------------
+
+
+st.subheader("Key Findings")
+
+
+cotton_emission = (
+    weight * EMISSION_FACTORS["Cotton"]
+)
+
+
+polyester_emission = (
+    weight * EMISSION_FACTORS["Polyester"]
+)
+
+
+recycled_emission = (
+    weight * EMISSION_FACTORS["Recycled Fiber"]
+)
+
+
+st.write(
+    f"🌿 Cotton: {cotton_emission:.2f} kg CO₂e"
+)
+
+
+st.write(
+    f"🧵 Polyester: {polyester_emission:.2f} kg CO₂e"
+)
+
+
+st.write(
+    f"♻️ Recycled Fiber: {recycled_emission:.2f} kg CO₂e"
+)
+
+
+# --------------------------------
+# 11. Limitations and Responsible Use
+# --------------------------------
+
+
+st.divider()
+
+
+with st.expander("Limitations and Responsible Use"):
+
+
+    st.subheader("Important Notice")
+
+
+    st.write(
+        """
+        The emission factors used in this application
+        are illustrative estimates for educational purposes only.
+
+
+        They are not verified industrial carbon footprint values.
+
+
+        Actual industrial emissions may vary depending on:
+
+
+        - Raw material production
+        - Manufacturing processes
+        - Energy consumption
+        - Transportation
+        - Production technology
+
+
+        This application provides approximate results
+        and should not be used for official industrial
+        carbon reporting or environmental certification.
+        """
+    )
+
+
+# --------------------------------
+# 12. Footer
+# --------------------------------
+
+
+st.caption(
+    "Textile Carbon Footprint Estimator | "
+    "Developed using Python and Streamlit"
+)
