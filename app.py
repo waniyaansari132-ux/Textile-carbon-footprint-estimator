@@ -1,6 +1,8 @@
-﻿import streamlit as st
+import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+st.markdown(unsafe_allow_html=True, '<style> body {background-color: #f0f2f6;} </style>')`.
+
 
 
 # --------------------------------
@@ -13,6 +15,7 @@ st.set_page_config(
     page_icon="🌱",
     layout="wide"
 )
+col1,col2=st.columns(2)
 
 
 # --------------------------------
