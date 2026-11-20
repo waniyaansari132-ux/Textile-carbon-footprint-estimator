@@ -346,4 +346,4 @@ html, body { margin: 0; background: transparent; font-family: 'Segoe UI', system
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 .sway { transform-origin: 40px 70px; animation: sway 3s ease-in-out infinite alternate; }
 .puff { transform-origin: 40px 46px; animation: puff 2.6s ease-in-out infinite; }
-.spin { transform-origin: 40px 40px; animation: spi
+.spin { transform-origin: 40px 40px; animation: spi"""@
