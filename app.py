@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: headline, then controls beside a 3D fabric roll, then 3D comparison bars beside a ranked list. Single dark digital theme by choice. */
+Layout: headline, then controls beside a 3D fabric roll, then 3D comparison bars beside a ranked list. Single dark digital theme by choice
 :root {
   --bg: #050912;
   --panel: rgba(13, 22, 44, 0.78);
